@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="layout :: body">
+<div>
+    <h2>Dashboard</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nickname</th>
+                <th>Make/Model</th>
+                <th>Year</th>
+                <th>Odometer (km)</th>
+                <th>Next Task</th>
+                <th>Overdue Count</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="moto : ${motorcycles}">
+                <td th:text="${moto.nickname}"></td>
+                <td th:text="${moto.make + ' ' + moto.model}"></td>
+                <td th:text="${moto.year}"></td>
+                <td th:text="${moto.currentOdometerKm}"></td>
+                <td>
+                    <div th:if="${nextByMoto[moto.id]}" th:with="task=${nextByMoto[moto.id]}">
+                        <strong th:text="${task.template.name}"></strong><br/>
+                        <span th:if="${task.nextDueOdometerKm != null}" th:text="'At ' + task.nextDueOdometerKm + ' km'"></span>
+                        <span th:if="${task.nextDueDate != null}" th:text="'By ' + task.nextDueDate"></span>
+                    </div>
+                    <span th:if="${nextByMoto[moto.id] == null}">No tasks</span>
+                </td>
+                <td th:text="${overdueCounts[moto.id]}"></td>
+                <td><a class="btn btn-sm btn-primary" th:href="@{'/motorcycles/' + ${moto.id}}">Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

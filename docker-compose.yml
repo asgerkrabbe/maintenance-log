@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  moto:
+    build: .
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    environment:
+      - APP_PORT=8080
+      - ADMIN_USER=${ADMIN_USER:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-password}
+      - DB_FILE_PATH=/data/moto-maintenance
+    volumes:
+      - moto-data:/data
+volumes:
+  moto-data:
