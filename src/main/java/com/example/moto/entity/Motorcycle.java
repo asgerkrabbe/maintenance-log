@@ -33,6 +33,7 @@ public class Motorcycle {
     @NotNull
     @Min(1900)
     @Max(2100)
+    @Column(name = "manufacture_year")
     private Integer year;
 
     @NotNull
