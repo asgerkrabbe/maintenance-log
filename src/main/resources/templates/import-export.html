@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="layout :: body">
+<h2>Import / Export</h2>
+<div class="mb-4">
+    <a class="btn btn-primary" th:href="@{/export}">Download JSON Export</a>
+</div>
+<div>
+    <h5>Import JSON</h5>
+    <form th:action="@{/import}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" class="form-control mb-2" required>
+        <button class="btn btn-warning" type="submit">Import (overwrite existing)</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="layout :: body">
+<h2 th:text="${motorcycle.nickname} != null ? 'Edit Motorcycle' : 'New Motorcycle'"></h2>
+<form th:action="${motorcycle.nickname} != null ? @{'/motorcycles/' + ${#request.requestURI.split('/')[2]}} : @{/motorcycles}" th:object="${motorcycle}" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3"><label class="form-label">Nickname</label><input class="form-control" th:field="*{nickname}" required></div>
+            <div class="mb-3"><label class="form-label">Make</label><input class="form-control" th:field="*{make}" required></div>
+            <div class="mb-3"><label class="form-label">Model</label><input class="form-control" th:field="*{model}" required></div>
+            <div class="mb-3"><label class="form-label">Year</label><input class="form-control" type="number" th:field="*{year}" required></div>
+            <div class="mb-3"><label class="form-label">Engine CC</label><input class="form-control" type="number" th:field="*{engineSizeCc}"></div>
+            <div class="mb-3"><label class="form-label">VIN</label><input class="form-control" th:field="*{vin}"></div>
+            <div class="mb-3"><label class="form-label">License Plate</label><input class="form-control" th:field="*{licensePlate}"></div>
+            <div class="mb-3"><label class="form-label">Purchase Date</label><input class="form-control" type="date" th:field="*{purchaseDate}"></div>
+            <div class="mb-3"><label class="form-label">Current Odometer (km)</label><input class="form-control" type="number" th:field="*{currentOdometerKm}"></div>
+            <div class="mb-3"><label class="form-label">Notes</label><textarea class="form-control" th:field="*{notes}"></textarea></div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
+</body>
+</html>

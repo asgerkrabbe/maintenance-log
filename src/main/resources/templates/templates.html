@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="layout :: body">
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Task Templates</h2>
+    <a class="btn btn-primary" th:href="@{/templates/new}">New Template</a>
+</div>
+<table class="table table-striped">
+    <thead><tr><th>Name</th><th>Interval Km</th><th>Interval Months</th><th>Category</th><th></th></tr></thead>
+    <tbody>
+    <tr th:each="t : ${templates}">
+        <td th:text="${t.name}"></td>
+        <td th:text="${t.intervalKm}"></td>
+        <td th:text="${t.intervalMonths}"></td>
+        <td th:text="${t.defaultCategory}"></td>
+        <td>
+            <a class="btn btn-sm btn-secondary" th:href="@{'/templates/' + ${t.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/templates/' + ${t.id} + '/delete'}" method="post" class="d-inline"><button class="btn btn-sm btn-danger" type="submit">Delete</button></form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

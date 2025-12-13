@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="layout :: body">
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 th:text="${motorcycle.nickname}"></h2>
+    <div>
+        <a class="btn btn-secondary" th:href="@{'/motorcycles/' + ${motorcycle.id} + '/edit'}">Edit</a>
+        <form th:action="@{'/motorcycles/' + ${motorcycle.id} + '/delete'}" method="post" class="d-inline">
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    </div>
+</div>
+<p class="text-muted" th:text="${motorcycle.make + ' ' + motorcycle.model + ' (' + motorcycle.year + ')'}"></p>
+<p>Odometer: <strong th:text="${motorcycle.currentOdometerKm}"></strong> km</p>
+
+<h4>Upcoming tasks</h4>
+<table class="table table-bordered">
+    <thead><tr><th>Name</th><th>Due Odometer</th><th>Due Date</th><th>Status</th></tr></thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.template.name}"></td>
+        <td th:text="${task.nextDueOdometerKm}"></td>
+        <td th:text="${task.nextDueDate}"></td>
+        <td><span th:text="${task.status}" th:classappend="${'badge status-' + task.status}"></span></td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="mb-4">
+    <h5>Attach template</h5>
+    <form th:action="@{'/motorcycles/' + ${motorcycle.id} + '/attach-template'}" method="post" th:object="${attachDto}" class="row gy-2 gx-2 align-items-end">
+        <div class="col-md-6">
+            <label class="form-label">Template</label>
+            <select class="form-select" th:field="*{templateId}">
+                <option th:each="t : ${templates}" th:value="${t.id}" th:text="${t.name}"></option>
+            </select>
+        </div>
+        <div class="col-auto"><button class="btn btn-primary" type="submit">Attach</button></div>
+    </form>
+</div>
+
+<h4>Maintenance history</h4>
+<form class="mb-2" method="get">
+    <div class="row g-2 align-items-center">
+        <div class="col-auto"><label>Filter by category:</label></div>
+        <div class="col-auto"><input class="form-control" type="text" name="category" th:value="${categoryFilter}"></div>
+        <div class="col-auto"><button class="btn btn-secondary" type="submit">Filter</button></div>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead><tr><th>Date</th><th>Odometer</th><th>Category</th><th>Title</th><th>Cost</th></tr></thead>
+    <tbody>
+    <tr th:each="rec : ${records}">
+        <td th:text="${rec.date}"></td>
+        <td th:text="${rec.odometerKm}"></td>
+        <td th:text="${rec.category}"></td>
+        <td th:text="${rec.title}"></td>
+        <td th:text="${(rec.costParts?:0) + (rec.costLabor?:0)}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h5>Add maintenance record</h5>
+<form th:action="@{/records}" method="post" th:object="${recordDto}" class="row g-2">
+    <input type="hidden" th:field="*{motorcycleId}">
+    <div class="col-md-3"><label class="form-label">Date</label><input class="form-control" type="date" th:field="*{date}" required></div>
+    <div class="col-md-3"><label class="form-label">Odometer</label><input class="form-control" type="number" th:field="*{odometerKm}" required></div>
+    <div class="col-md-3"><label class="form-label">Template</label>
+        <select class="form-select" th:field="*{templateId}">
+            <option value="">-- None --</option>
+            <option th:each="t : ${templates}" th:value="${t.id}" th:text="${t.name}"></option>
+        </select>
+    </div>
+    <div class="col-md-3"><label class="form-label">Category</label><input class="form-control" th:field="*{category}"></div>
+    <div class="col-md-4"><label class="form-label">Title</label><input class="form-control" th:field="*{title}" required></div>
+    <div class="col-md-8"><label class="form-label">Description</label><textarea class="form-control" th:field="*{description}"></textarea></div>
+    <div class="col-md-4"><label class="form-label">Parts Used</label><textarea class="form-control" th:field="*{partsUsed}"></textarea></div>
+    <div class="col-md-2"><label class="form-label">Cost Parts</label><input class="form-control" type="number" step="0.01" th:field="*{costParts}"></div>
+    <div class="col-md-2"><label class="form-label">Cost Labor</label><input class="form-control" type="number" step="0.01" th:field="*{costLabor}"></div>
+    <div class="col-md-4"><label class="form-label">Workshop</label><input class="form-control" th:field="*{workshop}"></div>
+    <div class="col-12"><button class="btn btn-primary" type="submit">Save Record</button></div>
+</form>
+</body>
+</html>
