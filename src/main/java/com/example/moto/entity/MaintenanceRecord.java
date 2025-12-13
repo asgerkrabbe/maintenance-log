@@ -1,0 +1,153 @@
+package com.example.moto.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "maintenance_records")
+public class MaintenanceRecord {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(optional = false)
+    private Motorcycle motorcycle;
+
+    private LocalDate date;
+
+    @NotNull
+    @PositiveOrZero
+    private Integer odometerKm;
+
+    @NotBlank
+    private String category;
+
+    @NotBlank
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(columnDefinition = "TEXT")
+    private String partsUsed;
+
+    @PositiveOrZero
+    private BigDecimal costParts;
+
+    @PositiveOrZero
+    private BigDecimal costLabor;
+
+    private String workshop;
+
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Motorcycle getMotorcycle() {
+        return motorcycle;
+    }
+
+    public void setMotorcycle(Motorcycle motorcycle) {
+        this.motorcycle = motorcycle;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Integer getOdometerKm() {
+        return odometerKm;
+    }
+
+    public void setOdometerKm(Integer odometerKm) {
+        this.odometerKm = odometerKm;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPartsUsed() {
+        return partsUsed;
+    }
+
+    public void setPartsUsed(String partsUsed) {
+        this.partsUsed = partsUsed;
+    }
+
+    public BigDecimal getCostParts() {
+        return costParts;
+    }
+
+    public void setCostParts(BigDecimal costParts) {
+        this.costParts = costParts;
+    }
+
+    public BigDecimal getCostLabor() {
+        return costLabor;
+    }
+
+    public void setCostLabor(BigDecimal costLabor) {
+        this.costLabor = costLabor;
+    }
+
+    public String getWorkshop() {
+        return workshop;
+    }
+
+    public void setWorkshop(String workshop) {
+        this.workshop = workshop;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+}

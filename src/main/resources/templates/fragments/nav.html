@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Moto Maintenance</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/motorcycles}">Motorcycles</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/upcoming}">Upcoming</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/templates}">Templates</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/import-export}">Import/Export</a></li>
+            </ul>
+            <form class="d-flex" th:action="@{/logout}" method="post">
+                <button class="btn btn-outline-light" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
