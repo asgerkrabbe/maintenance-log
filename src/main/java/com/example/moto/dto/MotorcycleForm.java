@@ -1,0 +1,59 @@
+package com.example.moto.dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+import java.time.LocalDate;
+
+public class MotorcycleForm {
+    private Long id;
+
+    @NotBlank
+    private String nickname;
+
+    @NotBlank
+    private String make;
+
+    @NotBlank
+    private String model;
+
+    @Min(1900)
+    private Integer year;
+
+    @Min(0)
+    private Integer engineSizeCc;
+
+    private String vin;
+
+    private String licensePlate;
+
+    private LocalDate purchaseDate;
+
+    @Min(0)
+    private Integer currentOdometerKm;
+
+    private String notes;
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getNickname() { return nickname; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
+    public String getMake() { return make; }
+    public void setMake(String make) { this.make = make; }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
+    public Integer getYear() { return year; }
+    public void setYear(Integer year) { this.year = year; }
+    public Integer getEngineSizeCc() { return engineSizeCc; }
+    public void setEngineSizeCc(Integer engineSizeCc) { this.engineSizeCc = engineSizeCc; }
+    public String getVin() { return vin; }
+    public void setVin(String vin) { this.vin = vin; }
+    public String getLicensePlate() { return licensePlate; }
+    public void setLicensePlate(String licensePlate) { this.licensePlate = licensePlate; }
+    public LocalDate getPurchaseDate() { return purchaseDate; }
+    public void setPurchaseDate(LocalDate purchaseDate) { this.purchaseDate = purchaseDate; }
+    public Integer getCurrentOdometerKm() { return currentOdometerKm; }
+    public void setCurrentOdometerKm(Integer currentOdometerKm) { this.currentOdometerKm = currentOdometerKm; }
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
+}
